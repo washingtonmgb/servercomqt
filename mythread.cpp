@@ -40,7 +40,7 @@ void MyThread::readyRead(){
 
   list = str.split(" ");
   // parses the string list
-  storage->addData(peerAddress,QDateTime::currentDateTime(), 23);
+  //storage->addData(peerAddress,QDateTime::currentDateTime(), 23);
 
   QString cmd;
   cmd = list.at(0);

@@ -58,20 +58,22 @@ void MyThread::readyRead(){
   else if(cmd == "get"){
     // recupera o argumento fornecido para get
     // ex: get 127.0.0.1
-    cmd = list.at(1);
-    qDebug() << "pass 1";
-    QHostAddress address(cmd);
-    // se o endereco for valido...
-    if(!address.isNull()){
-      // recupera entradas para um dado endereco
-      entry = storage->getData(address);
-      // mostra as entradas para o cliente
-      for(int i=0; i<entry.size(); i++){
-        value = entry[i];
-        socket->write(value.theTime.toString(Qt::ISODate).toStdString().c_str());
-        socket->write(" ");
-        socket->write(QString().number(value.measurement).toStdString().c_str());
-        socket->write("\n");
+    if(list.size() == 2){
+      cmd = list.at(1);
+      qDebug() << "pass 1";
+      QHostAddress address(cmd);
+      // se o endereco for valido...
+      if(!address.isNull()){
+        // recupera entradas para um dado endereco
+        entry = storage->getData(address);
+        // mostra as entradas para o cliente
+        for(int i=0; i<entry.size(); i++){
+          value = entry[i];
+          socket->write(value.theTime.toString(Qt::ISODate).toStdString().c_str());
+          socket->write(" ");
+          socket->write(QString().number(value.measurement).toStdString().c_str());
+          socket->write("\n");
+        }
       }
     }
   }
@@ -80,15 +82,17 @@ void MyThread::readyRead(){
   else if(cmd == "set"){
     // sintaxe: set date time float_value
     // ex: set 2016-05-04T10:24:14 34
-    cmd = list.at(1);
-    datetime = QDateTime::fromString(cmd, Qt::ISODate);
-    if(datetime.isValid()){
-      cmd = list.at(2);
-      bool ok;
-      value.measurement = cmd.toFloat(&ok);
-      if(ok){
-        storage->addData(socket->peerAddress(),datetime,
-                         value.measurement);
+    if(list.size() == 3){
+      cmd = list.at(1);
+      datetime = QDateTime::fromString(cmd, Qt::ISODate);
+      if(datetime.isValid()){
+        cmd = list.at(2);
+        bool ok;
+        value.measurement = cmd.toFloat(&ok);
+        if(ok){
+          storage->addData(socket->peerAddress(),datetime,
+                           value.measurement);
+        }
       }
     }
   }

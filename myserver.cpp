@@ -3,7 +3,7 @@
 MyServer::MyServer(QObject *parent) :
   QTcpServer(parent)
 {
-  ok = 1;
+
 }
 
 void MyServer::StartServer(){

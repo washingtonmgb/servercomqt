@@ -1,5 +1,5 @@
 #include "myserver.h"
-
+#include <QNetworkInterface>
 MyServer::MyServer(QObject *parent) :
   QTcpServer(parent)
 {
@@ -11,7 +11,11 @@ void MyServer::StartServer(){
     qDebug() << "server not started";
   }
   else{
-    qDebug() << "server started";
+    qDebug() << "server started at:" ;
+    foreach (const QHostAddress &address, QNetworkInterface::allAddresses()) {
+      if (address.protocol() == QAbstractSocket::IPv4Protocol && address != QHostAddress(QHostAddress::LocalHost))
+        qDebug() << address.toString();
+    }
   }
 }
 

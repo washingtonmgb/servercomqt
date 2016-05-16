@@ -66,15 +66,31 @@ set DATA_E_HORA DADO
 ```
 
 O comando **_list_** retorna a lista de máquinas cujos dados
-produzidos encontram-se armazenados no servidor.
+produzidos encontram-se armazenados no servidor. ex:
+```
+$ telnet 127.0.0.1 1234
+list
+127.0.0.1
+```
 
 O comando **_get_** precisa que se forneça também o número IP do
 **cliente produtor** que se deseja recuperar o conjunto de dados
-produzidos.
+produzidos. ex:
+
+```
+$ telnet 127.0.0.1 1234
+get 127.0.0.1
+2016-05-04T10:24:14 34
+```
 
 O comando **_set_** precisa que se forneça uma combinação DATA e HORA,
-bem como o dado que se deseja armazenar no servidor.
+bem como o dado que se deseja armazenar no servidor. ex:
 
+```
+$ telnet 127.0.0.1 1234
+set 127.0.0.1
+set 2016-05-04T10:24:14 34
+``
 Todos os comandos devem ser enviados na forma de literais. O servidor,
 uma vez que receba essas sequências de literais, separa-as conforme a
 quantidade de espaços presentes e armazena os dados associados em uma
@@ -83,4 +99,11 @@ estrutura local criada para esse fim.
 Em se tratando de um projeto meramente acadêmico, pouco controle de
 erro é realizado nessa versão inicial.
 
+Quando o servidor é executado, uma mensagem é exibida na aba
+**Application Output** do QtCreator mostrando o IP local do servidor,
+como ilustram as linhas a seguir:
 
+```
+server started at:
+"192.168.1.106"
+```

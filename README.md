@@ -31,5 +31,56 @@ palavras, esse programa é capaz de escutar a rede local e aguardar por
 conexões remotas destinadas à porta TCP/1234.
 
 Em redes TCP/IP, o protocolo de comunicação TCP permite a criação de
-um circuito virtual, um canal de comunicação aberto que pode ser usado
-para enviar e receber sequências de bytes 
+um circuito virtual, um canal de comunicação que pode ser usado para
+enviar e receber sequências de bytes pela Internet. O canal é fechado
+apenas quando a conexão é interrompida.
+
+Para se abrir uma conexão com uma máquina que executa um determinado
+serviço usando o protocolo TCP é necessário que se conheça seu
+endereço IP (ou nome) e uma _porta_ onde o serviço será
+provido. Quando a conexão é aberta para um novo cliente, inicia-se um
+_socket_ de comunicação, identificado, entre outras coisas, pela
+combinação IP+porta. Cada _socket_ possui um número único que
+pode ser usado para distinguir entre as várias conexões que podem
+chegar à mesma porta. Isso é comum em máquinas que provêem serviços a
+vários clientes.
+
+Máquinas que aguardam conexões comumente chamadas de **servidores**. O
+servidor implementado neste projeto _escuta_  a porta **1234**. Uma
+vez que um cliente se conecte a esta, as tarefas que o servidor irá
+executar dependerão de mensagens enviadas pelo cliente. Para cada
+mensagem, uma tarefa diferente é executada. É dessa maneira que os
+vários serviços na Internet funcionam.
+
+O servidor do projeto não necessita de modificações para
+funcionar. Basta abrir o projeto no QtCreator, compilar e executar o
+código. O servidor é capaz de interpretar mensagens em texto simples
+que lhe forem enviadas. As mensagens aceitas pelo servidor formam o
+que se chama de **protocolo de aplicação** para este serviço. Três
+mensagens são suportadas nesse protocolo:
+
+```
+list
+get NUMERO_IP
+set DATA_E_HORA DADO
+```
+
+O comando **_list_** retorna a lista de máquinas cujos dados
+produzidos encontram-se armazenados no servidor.
+
+O comando **_get_** precisa que se forneça também o número IP do
+**cliente produtor** que se deseja recuperar o conjunto de dados
+produzidos.
+
+O comando **_set_** precisa que se forneça uma combinação DATA e HORA,
+bem como o dado que se deseja armazenar no servidor.
+
+Todos os comandos devem ser enviados na forma de literais. O servidor,
+uma vez que receba essas sequências de literais, separa-as conforme a
+quantidade de espaços presentes e armazena os dados associados em uma
+estrutura local criada para esse fim.
+
+Em se tratando de um projeto meramente acadêmico, pouco controle de
+erro é realizado nessa versão inicial.
+
+

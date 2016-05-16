@@ -91,10 +91,13 @@ $ telnet 127.0.0.1 1234
 set 127.0.0.1
 set 2016-05-04T10:24:14 34
 ```
-Todos os comandos devem ser enviados na forma de literais. O servidor,
-uma vez que receba essas sequências de literais, separa-as conforme a
-quantidade de espaços presentes e armazena os dados associados em uma
-estrutura local criada para esse fim.
+
+Todos os comandos devem ser enviados na forma de literais. O indicador
+de data/hora precisa ser conforme o padrão [ISO8601]
+(https://www.w3.org/TR/NOTE-datetime). O servidor, uma vez que receba
+essas sequências de literais, separa-as conforme a quantidade de
+espaços presentes e armazena os dados associados em uma estrutura
+local criada para esse fim.
 
 Em se tratando de um projeto meramente acadêmico, pouco controle de
 erro é realizado nessa versão inicial.
@@ -115,4 +118,11 @@ servidor em execução e enviar comandos **set** para este
 servidor. Espera-se que esse módulo seja capaz de simular um processo
 de coleta e envio de dados para o servidor em intervalos periódicos.
 
-A construção do cliente deve possibilitar, para a simu
+A construção do cliente deve possibilitar o envio de dados
+(possivelmente aleatórios) para o servidor em intervalos regulares de
+tempo. Para isso, seu usuário deverá ser capaz de realizar as
+seguintes operações no módulo produtor:
+
+- Indicar o IP do servidor ao qual se deseja conectar
+- Indicar a faixa de valores que poderão ser enviados ao servidor
+- Indicar o intervalo de tempo entre o envio de dois dados

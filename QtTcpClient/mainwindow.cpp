@@ -29,7 +29,7 @@ void MainWindow::getData()
   QByteArray array;
   QStringList list;
   QDateTime datetime;
-  if(socket->isOpen()){
+  if(socket->state()== QAbstractSocket::ConnectedState){
     socket->write("get 127.0.0.1\r\n");
     socket->waitForBytesWritten(3000);
     socket->waitForReadyRead(3000);
@@ -50,7 +50,7 @@ void MainWindow::putData()
 {
   QDateTime datetime;
   QString str;
-  if(socket->isOpen()){
+  if(socket->state()== QAbstractSocket::ConnectedState){
     for(int i=0; i<10; i++){
       datetime = QDateTime::currentDateTime();
       str = "set "+

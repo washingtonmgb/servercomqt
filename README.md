@@ -160,7 +160,7 @@ disposição as seguintes funcionalidades:
   parar de receber.
 - Deverá ficar disponível a possibilidade de modificar o intervalo de
   tempo de captura entre dois conjuntos de dados consecutivos, ou
-  seja, entre o envio de dois comandos _get 
+  seja, entre o envio de dois comandos *get*
 
 Para cada recepção de dados, a ferramenta deverá traçar o gráfico
 tempo x valor do conjunto de dados lido do servidor. Algumas formas de

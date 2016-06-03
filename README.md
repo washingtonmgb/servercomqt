@@ -171,4 +171,8 @@ traçado podem ser consideradas:
   últimas 30 amostras obtidas). Isso pode interessante para evitar que
   o gráfico fique sobrecarregado.
 
+Um exemplo de interface para o módulo consumidor de dados é mostrado na
+figura que segue:
+
+![Produtor de dados](images/dataconsumer.png)
 

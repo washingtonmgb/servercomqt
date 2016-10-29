@@ -48,8 +48,14 @@ void MyThread::readyRead(){
   // lista os hosts produtores de dados
   if(cmd == "list"){
     hostList = storage->getHostList();
-    for(int i=0; i<hostList.size(); i++){
-      socket->write(hostList[i].toString().toStdString().c_str());
+    if(hostList.size() > 0){
+      for(int i=0; i<hostList.size(); i++){
+        socket->write(hostList[i].toString().toStdString().c_str());
+        socket->write("\r\n");
+      }
+    }
+    else{
+      socket->write("no hosts available");
       socket->write("\r\n");
     }
   }
@@ -60,7 +66,7 @@ void MyThread::readyRead(){
     // ex: get 127.0.0.1
     if(list.size() == 2){
       cmd = list.at(1);
-      qDebug() << "pass 1";
+//      qDebug() << "pass 1";
       QHostAddress address(cmd);
       // se o endereco for valido...
       if(!address.isNull()){
@@ -90,6 +96,7 @@ void MyThread::readyRead(){
         bool ok;
         value.measurement = cmd.toFloat(&ok);
         if(ok){
+          qDebug() << "escreveu: " << datetime << value.measurement;
           storage->addData(socket->peerAddress(),datetime,
                            value.measurement);
         }

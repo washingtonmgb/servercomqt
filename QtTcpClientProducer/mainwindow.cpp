@@ -9,8 +9,11 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->setupUi(this);
   socket = new QTcpSocket(this);
   tcpConnect();
-  putData();
-  getData();
+
+  connect(ui->pushButtonPut,
+          SIGNAL(clicked(bool)),
+          this,
+          SLOT(putData()));
 }
 
 void MainWindow::tcpConnect(){
@@ -23,34 +26,11 @@ void MainWindow::tcpConnect(){
   }
 }
 
-void MainWindow::getData()
-{
-  QString str;
-  QByteArray array;
-  QStringList list;
-  QDateTime datetime;
-  if(socket->isOpen()){
-    socket->write("get 127.0.0.1\r\n");
-    socket->waitForBytesWritten(3000);
-    socket->waitForReadyRead(3000);
-    qDebug() << socket->bytesAvailable();
-    while(socket->bytesAvailable()){
-      str = socket->readLine().replace("\n","").replace("\r","");
-      list = str.split(" ");
-      if(list.size() == 2){
-        datetime.fromString(list.at(0),Qt::ISODate);
-        str = list.at(1);
-        qDebug() << datetime << ": " << str;
-      }
-    }
-  }
-}
-
-void MainWindow::putData()
-{
+void MainWindow::putData(){
   QDateTime datetime;
   QString str;
-  if(socket->isOpen()){
+  if(socket->state() == QAbstractSocket::ConnectedState &&
+     socket->isOpen()){
     for(int i=0; i<10; i++){
       datetime = QDateTime::currentDateTime();
       str = "set "+
@@ -59,8 +39,10 @@ void MainWindow::putData()
           QString::number(qrand()%35)+"\r\n";
 
       qDebug() << str;
-      socket->write(str.toStdString().c_str());
-      socket->waitForBytesWritten(3000);
+      qDebug() << i << ": " << socket->write(str.toStdString().c_str()) << " bytes written";
+      if(socket->waitForBytesWritten(3000)){
+        qDebug() << "wrote";
+      }
     }
   }
 }

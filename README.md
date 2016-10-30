@@ -152,15 +152,15 @@ disposição as seguintes funcionalidades:
 - Iniciar a conexão com o servidor ao se pressionar um botão.
 - Uma vez conectado, o usuário deverá ter a disposição uma lista das
   máquinas que produziram dados no servidor. Isso pode ser
-  implementado usando um **listview**.
-- No **listview** o usuário deverá ser capaz de selecionar a máquina
+  implementado usando um **listwidget**.
+- No **listwidget** o usuário deverá ser capaz de selecionar a máquina
   cujos dados deseja visualizar.
 - Com uma máquina selecionada, dois botões deverão ficar disponíveis
   para o usuário: um para começar a receber os dados e outro para
   parar de receber.
 - Deverá ficar disponível a possibilidade de modificar o intervalo de
   tempo de captura entre dois conjuntos de dados consecutivos, ou
-  seja, entre o envio de dois comandos *get*
+  seja, entre o envio de dois comandos _get 
 
 Para cada recepção de dados, a ferramenta deverá traçar o gráfico
 tempo x valor do conjunto de dados lido do servidor. Algumas formas de
@@ -171,4 +171,8 @@ traçado podem ser consideradas:
   últimas 30 amostras obtidas). Isso pode interessante para evitar que
   o gráfico fique sobrecarregado.
 
+Um exemplo de interface para o módulo consumidor de dados é mostrado na
+figura que segue:
+
+![Produtor de dados](images/dataconsumer.png)
 

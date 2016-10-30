@@ -26,12 +26,11 @@ void MainWindow::tcpConnect(){
   }
 }
 
-void MainWindow::putData(){
+void MainWindow::putData()
+{
   QDateTime datetime;
   QString str;
-  if(socket->state() == QAbstractSocket::ConnectedState &&
-     socket->isOpen()){
-    for(int i=0; i<10; i++){
+  if(socket->state()== QAbstractSocket::ConnectedState){
       datetime = QDateTime::currentDateTime();
       str = "set "+
           datetime.toString(Qt::ISODate)+
@@ -43,7 +42,6 @@ void MainWindow::putData(){
       if(socket->waitForBytesWritten(3000)){
         qDebug() << "wrote";
       }
-    }
   }
 }
 MainWindow::~MainWindow()

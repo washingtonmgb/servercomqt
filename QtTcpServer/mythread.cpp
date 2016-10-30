@@ -56,7 +56,15 @@ void MyThread::readyRead(){
     }
     else{
       socket->write("no hosts available");
+    }
+    if(hostList.size() == 0){
       socket->write("\r\n");
+    }
+    else{
+      for(int i=0; i<hostList.size(); i++){
+        socket->write(hostList[i].toString().toStdString().c_str());
+        socket->write("\r\n");
+      }
     }
   }
 

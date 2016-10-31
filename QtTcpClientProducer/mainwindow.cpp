@@ -38,7 +38,7 @@ void MainWindow::putData()
           QString::number(qrand()%35)+"\r\n";
 
       qDebug() << str;
-      qDebug() << i << ": " << socket->write(str.toStdString().c_str()) << " bytes written";
+      qDebug() << socket->write(str.toStdString().c_str()) << " bytes written";
       if(socket->waitForBytesWritten(3000)){
         qDebug() << "wrote";
       }

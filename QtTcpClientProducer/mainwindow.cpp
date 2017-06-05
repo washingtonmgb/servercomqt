@@ -3,9 +3,7 @@
 #include <QDateTime>
 
 MainWindow::MainWindow(QWidget *parent) :
-  QMainWindow(parent),
-  ui(new Ui::MainWindow)
-{
+  QMainWindow(parent), ui(new Ui::MainWindow){
   ui->setupUi(this);
   socket = new QTcpSocket(this);
   tcpConnect();
@@ -26,16 +24,15 @@ void MainWindow::tcpConnect(){
   }
 }
 
-void MainWindow::putData()
-{
+void MainWindow::putData(){
   QDateTime datetime;
   QString str;
+  qint64 msecdate;
+
   if(socket->state()== QAbstractSocket::ConnectedState){
-      datetime = QDateTime::currentDateTime();
-      str = "set "+
-          datetime.toString(Qt::ISODate)+
-          " "+
-          QString::number(qrand()%35)+"\r\n";
+
+    msecdate = QDateTime::currentDateTime().toMSecsSinceEpoch();
+    str = "set "+ QString::number(msecdate) + " " + QString::number(qrand()%35)+"\r\n";
 
       qDebug() << str;
       qDebug() << socket->write(str.toStdString().c_str()) << " bytes written";
@@ -44,8 +41,8 @@ void MainWindow::putData()
       }
   }
 }
-MainWindow::~MainWindow()
-{
+
+MainWindow::~MainWindow(){
   delete socket;
   delete ui;
 }
